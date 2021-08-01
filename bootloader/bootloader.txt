@@ -1,0 +1,42 @@
+ bits 16
+ 
+ 
+ start: jmp boot
+ 
+ 
+ msg db "Welcome to My Operating System!", 0ah, 0dh, 0h
+ 
+ boot: 
+    cli
+    cld
+    mov al, '!'
+    mov ah, 0x0e
+    mov bh, 0x00
+    mov bl, 0x07
+    int 0x10
+    mov al, '!'
+    mov ah, 0x0e
+    mov bh, 0x00
+    mov bl, 0x07
+    int 0x10
+    mov ax, 0x50
+    
+    mov es, ax
+    xor bx, bx
+    
+    mov al, 17
+    mov ch, 0
+    mov cl, 2
+    mov dh, 0
+    mov dl, 0
+ 
+    mov ah, 0x02
+
+    int 0x13
+    jmp	[500h + 0x18]
+    hlt
+    
+    
+times 510 - ($-$$) db 0
+
+dw 0xAA55
